@@ -139,8 +139,8 @@
         "field": "xml",
         "target_field": "schtask_cmd",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && (ctx.event_id=='4698' || ctx.event_id=='4699' || ctx.event_id=='4702')",
-        "pattern": ".*<Command>([^<]*)<\/(Command.*",
-        "replacement": "$3"
+        "pattern": ".*<Command>([^<]*)<\/(Command).*",
+        "replacement": "$2"
       }
     },{
       "gsub": {
