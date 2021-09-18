@@ -16,7 +16,9 @@
     }, */{
       "lowercase": {
         "field": "hostname",
-        "ignore_missing": true
+        "ignore_missing": true,
+        "ignore_failure": true
+        
       }
     }
   ]
