@@ -6,7 +6,9 @@
         "if": "ctx.parser=='prefetch' && ctx.path_hints!=null",
         "target_field": "path",
         "field": "path_hints",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_missing": true
+        
       }
     }
   ]
