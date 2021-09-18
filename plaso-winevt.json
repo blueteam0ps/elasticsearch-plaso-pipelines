@@ -7,14 +7,18 @@
         "target_field": "xml",
         "if": "ctx.parser == 'winevtx'",
         "pattern": ">\\n\\s*",
-        "replacement": ">"
+        "replacement": ">",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
         "field": "xml",
         "if": "ctx.parser == 'winevtx'",
         "pattern": "\\r\\n\\t\\t\\t",
-        "replacement": "; "
+        "replacement": "; ",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -22,7 +26,9 @@
         "target_field": "event_id",
         "if": "ctx.xml=~/<EventID/",
         "pattern": ".*<(EventID)[^>]*>(.*)<.(EventID).*",
-        "replacement": "$2"
+        "replacement": "$2",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -30,7 +36,9 @@
         "target_field": "hostname",
         "if": "ctx.xml=~/<Computer/",
         "pattern": ".*<Computer[^>]*>([^<]*)</Computer>.*",
-        "replacement": "$1"
+        "replacement": "$1",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -38,7 +46,9 @@
         "target_field": "username",
         "if": "ctx.xml=~/<(User)>/",
         "pattern": ".*<User[^>]*>([^<]*)</User>.*",
-        "replacement": "$1"
+        "replacement": "$1",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -46,7 +56,9 @@
         "target_field": "username",
         "if": "ctx.xml=~/<EventID>1149<.*Param1>/",
         "pattern": ".*<Param1>([^<]*)</Param1>.*",
-        "replacement": "$1"
+        "replacement": "$1",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -54,7 +66,9 @@
         "target_field": "target_username",
         "if": "ctx.xml=~/TargetUserName/",
         "pattern": ".*<(Data.Name)=\"(TargetUserName)\">([^<]*)<.(Data)?(.|\\W)*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  {
       "gsub": {
@@ -62,7 +76,9 @@
         "target_field": "subject_username",
         "if": "ctx.xml=~/SubjectUserName/",
         "pattern": ".*<(Data.Name)=\"(SubjectUserName)\">([^<]*)<.(Data)?(.|\\W)*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  /*{
       "rename": {
@@ -76,7 +92,9 @@
         "target_field": "logon_type",
         "if": "ctx.xml=~/LogonType/",
         "pattern": ".*<Data Name=\"LogonType\">(\\d*)<.*",
-        "replacement": "$1"
+        "replacement": "$1",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  {
       "gsub": {
@@ -84,7 +102,9 @@
         "target_field": "svc_img_path",
         "if": "ctx.source_name=='Service Control Manager' && ctx.event_id=='7045'",
         "pattern": ".*<(Data.Name)=\"(ImagePath)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -92,7 +112,9 @@
         "target_field": "svc_name",
         "if": "ctx.source_name=='Service Control Manager' && ctx.event_id=='7045'",
         "pattern": ".*<(Data.Name)=\"(ServiceName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -100,7 +122,9 @@
         "target_field": "parent_procname",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4688'",
         "pattern": ".*<(Data.Name)=\"(ParentProcessName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -108,7 +132,9 @@
         "target_field": "child_procname",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4688'",
         "pattern": ".*<(Data.Name)=\"(NewProcessName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -116,7 +142,9 @@
         "target_field": "proc_cmdline",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4688'",
         "pattern": ".*<(Data.Name)=\"(CommandLine)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -124,7 +152,9 @@
         "target_field": "svc_filename",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4697'",
         "pattern": ".*<(Data.Name)=\"(ServiceFileName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -132,7 +162,9 @@
         "target_field": "schtask_name",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && (ctx.event_id=='4698' || ctx.event_id=='4699' || ctx.event_id=='4702')",
         "pattern": ".*<(Data.Name)=\"(TaskName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -140,7 +172,9 @@
         "target_field": "schtask_cmd",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && (ctx.event_id=='4698' || ctx.event_id=='4699' || ctx.event_id=='4702')",
         "pattern": ".*<Command>([^<]*)<\/(Command).*",
-        "replacement": "$1"
+        "replacement": "$1",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },{
       "gsub": {
@@ -148,7 +182,9 @@
         "target_field": "logon_process_name",
         "if": "ctx.xml=~/LogonProcessName/",
         "pattern": ".*<(Data.Name)=\"(LogonProcessName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -156,7 +192,9 @@
         "target_field": "process_name",
         "if": "ctx.xml=~/CallerProcessName/",
         "pattern": ".*<(Data.Name)=\"(CallerProcessName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  {
       "gsub": {
@@ -164,7 +202,9 @@
         "target_field": "authentication_package_name",
         "if": "ctx.xml=~/AuthenticationPackageName/",
         "pattern": ".*<(Data.Name)=\"(AuthenticationPackageName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  {
       "gsub": {
@@ -172,7 +212,9 @@
         "target_field": "process_name",
         "if": "ctx.xml=~/=\"ProcessName\"/",
         "pattern": ".*<(Data.Name)(=\"ProcessName\")>([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  {
       "gsub": {
@@ -180,7 +222,9 @@
         "target_field": "audit_source_name",
         "if": "ctx.xml=~/AuditSourceName/",
         "pattern": ".*<(Data.Name)=\"(AuditSourceName)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     },  {
       "gsub": {
@@ -188,14 +232,18 @@
         "target_field": "event_provider",
         "if": "ctx.xml=~/<Provider.Name/",
         "pattern": ".*<(Provider.Name)=\"([^\"]+)\"(.Guid|<.|/).*",
-        "replacement": "$2"
+        "replacement": "$2",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
         "field": "event_provider",
         "pattern": "-",
         "if": "ctx.event_provider != null",
-        "replacement": " "
+        "replacement": " ",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -203,7 +251,9 @@
         "target_field": "ip_address",
         "if": "ctx.xml=~/<(IPAddress|IpAddress|Address|Param1|Param3)>\\d+\\.[^<]*</",
         "pattern": ".*<(IPAddress|IpAddress|Address|Param1|Param3)>(\\d+\\.[^<]*)</(IPAddress|IpAddress|Address|Param1|Param3)>.*",
-        "replacement": "$2"
+        "replacement": "$2",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, /*{
       "gsub": {
@@ -219,7 +269,9 @@
         "target_field": "ip_address",
         "if": "ctx.xml=~/<Data Name=\"(ClientIP)\">\\d+\\./",
         "pattern": ".*<Data.Name=\"(ClientIP)\">([\\d+\\.]+)[^<]*</Data>.*",
-        "replacement": "$2"
+        "replacement": "$2",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -227,7 +279,9 @@
         "target_field": "ip_address",
         "if": "ctx.xml=~/(\"IpAddress\")/",
         "pattern": ".*<(Data.Name)=\"(IpAddress)\">([^<]*)<.(Data).*",
-        "replacement": "$3"
+        "replacement": "$3",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -235,13 +289,17 @@
         "target_field": "ip_address",
         "if": "ctx.xml=~/(\"ServerAddress\")/",
         "pattern": ".*(<Data.Name=\"Name\">ServerAddress<.Data><Data.Name=\"Value\">)([^<]*)(<.Data>).*",
-        "replacement": "$2"
+        "replacement": "$2",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "rename": {
         "field": "strings_parsed.target_machine_ip",
         "target_field": "ip_address",
-        "if": "ctx.strings_parsed != null && ctx.strings_parsed.target_machine_ip != null && ctx.strings_parsed.target_machine_ip =~/\\d+\\./"
+        "if": "ctx.strings_parsed != null && ctx.strings_parsed.target_machine_ip != null && ctx.strings_parsed.target_machine_ip =~/\\d+\\./",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, {
       "gsub": {
@@ -249,7 +307,9 @@
         "target_field": "session_id",
         "if": "ctx.xml=~/<SessionID>/",
         "pattern": ".*<SessionID[^>]*>([^<]*)</SessionID>.*",
-        "replacement": "$1"
+        "replacement": "$1",
+        "ignore_failure" : true,
+        "ignore_missing" : true
       }
     }, /*{
      "remove": {
@@ -259,130 +319,151 @@
     }, */{
       "remove": {
         "field": "strings_parsed",
-        "ignore_missing": true
+        "ignore_missing": true,
+        "ignore_failure" : true
       }
     }, {
       "remove": {
         "field": "ip_address",
         "if": "ctx.ip_address == '-'",
-        "ignore_missing": true
+        "ignore_missing": true,
+        "ignore_failure" : true
       }
     }, {
       "remove": {
         "field": "process_name",
         "if": "ctx.processname == '-'",
-        "ignore_missing": true
+        "ignore_missing": true,
+        "ignore_failure" : true
       }
     }, {
       "remove": {
         "field": "subject_username",
         "if": "ctx.subject_username == '-'",
-        "ignore_missing": true
+        "ignore_missing": true,
+        "ignore_failure" : true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "Remote Desktop Services: Session logon succeeded",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='21'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
+        
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "Remote Desktop Services: Shell start notification received",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='22'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "Remote Desktop Services: Session logoff succeeded",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='23'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "Remote Desktop Services: Session has been disconnected",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='24'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "Remote Desktop Services: Session reconnection succeeded",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='25'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "The user formally disconnected from the RDP session",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='39'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "The user disconnected from or reconnected to an RDP session",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='40'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "RDP Connection Received",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-RemoteConnectionManager' && ctx.event_id=='1149'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "An account was successfully logged on",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4624'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4625'",
         "field": "event_description",
         "value": "An account failed to log on",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "A user disconnected from, or logged off, an RDP session",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4634'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "User initiated logoff",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4647'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "The user reconnected to an existing RDP session",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4778'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "The user disconnected from from an RDP session",
         "if": "ctx.source_name=='Microsoft-Windows-Security-Auditing' && ctx.event_id=='4779'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
       }
     }, {
       "set": {
         "field": "event_description",
         "value": "A user has closed out an RDP connection",
         "if": "ctx.source_name=='Microsoft-Windows-TerminalServices-LocalSessionManager' && ctx.event_id=='9009'",
-        "ignore_failure": true
+        "ignore_failure": true,
+        "ignore_empty_value": true
+       
       }
     }
   ]
