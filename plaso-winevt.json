@@ -316,7 +316,7 @@
         "field": "xml",
         "ignore_missing": true
       }
-    }, */{
+    }, {
       "remove": {
         "field": "strings_parsed",
         "ignore_missing": true,
@@ -343,7 +343,7 @@
         "ignore_missing": true,
         "ignore_failure" : true
       }
-    }, {
+    },*/ {
       "set": {
         "field": "event_description",
         "value": "Remote Desktop Services: Session logon succeeded",
